@@ -43,7 +43,8 @@ interface Holidays {
 
 数据地址格式:
 
-    https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/{年份}.json
+    https://raw.githubusercontent.com/taotaoping/holiday-cn/master/{年份}.json
+    https://raw.githubusercontent.com/taotaoping/holiday-cn/master/holiday-cn.ics
 
 访问 github 不方便时可使用国内镜像仓库
 
