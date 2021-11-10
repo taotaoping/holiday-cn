@@ -63,8 +63,8 @@ def _iter_date_ranges(days: Sequence[dict]) -> Iterator[Tuple[dict, dict]]:
 def generate_ics(days: Sequence[dict], filename: Text) -> None:
     """Generate ics from days."""
     cal = Calendar()
-    cal.add("X-WR-CALNAME", "中国法定节假日")
-    cal.add("X-WR-CALDESC", "中国法定节假日数据，自动每日抓取国务院公告。")
+    cal.add("X-WR-CALNAME", "中国法定节假日&调休")
+    cal.add("X-WR-CALDESC", "中国法定节假日&调休数据，自动每日抓取国务院公告。")
     cal.add("VERSION", "2.0")
     cal.add("METHOD", "PUBLISH")
     cal.add("CLASS", "PUBLIC")
@@ -77,9 +77,12 @@ def generate_ics(days: Sequence[dict], filename: Text) -> None:
         start = _cast_date(fr["date"])
         end = _cast_date(to["date"]) + datetime.timedelta(days=1)
 
-        name = fr["name"] + "假期"
+        name = fr["name"]
         if not fr["isOffDay"]:
-            name = "上班(补" + name + ")"
+            name = name + "调休上班"
+        else:
+            name = name + "假期"
+
         cal.add_component(_create_event(name, start, end))
 
     with open(filename, "wb") as f:
